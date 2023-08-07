@@ -691,7 +691,7 @@
 		
 		
 			<!-- 전체 포토리뷰가 표시되는 부분 -->
-			<div id="photoReviewModalList">
+			<div id="photoReviewModalList" style="z-index:50;">
 			</div>	
 			</div>
 			</div>

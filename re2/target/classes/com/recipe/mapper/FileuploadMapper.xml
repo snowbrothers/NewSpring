@@ -40,7 +40,7 @@
 		       DECODE(filetype, 'I', 's_' || uploadpath || uuid || '_' || filename, '') AS s_savePath,
 		       COUNT(*) OVER() AS photoTotalCnt
 		FROM rec_file t
-		WHERE b_no = 2 AND filetype = 'R'
+		WHERE b_no = 9 AND filetype = 'R'
 		ORDER BY r_no DESC
 		 
 

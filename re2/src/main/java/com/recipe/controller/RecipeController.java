@@ -55,18 +55,18 @@ public class RecipeController {
 		// 데이터가 잘 넘어왔는지 확인
 		log.info("============== bno " + b_no); 
 		
-		// b_no 를 활용해 데이터 베이스에서 게시글 정보 조회 // 우선 2으로 설정 해둠 수정해야함
-		RecipeBoardVo vo =  service.getOne(2);
+		// b_no 를 활용해 데이터 베이스에서 게시글 정보 조회 // 우선 9으로 설정 해둠 수정해야함
+		RecipeBoardVo vo =  service.getOne(9);
 		
 		// 객체 정보가 넘어온다..
-		//service.getMaterial(2);
+		//service.getMaterial(9);
 		
 		
 		// 재료 정보 조회
 		
 	
-		int replyCnt =service.replyTotalCnt(2);
-		int photoReviewCnt = service.photoTotalCnt(2);
+		int replyCnt =service.replyTotalCnt(9);
+		int photoReviewCnt = service.photoTotalCnt(9);
 		// key, value 로 이루어진 model 객체를 사용해 /recipe/view 페이지에 데이터 전달.
 		model.addAttribute("replyCnt", replyCnt);
 		model.addAttribute("photoReviewCnt", photoReviewCnt);
@@ -86,7 +86,7 @@ public class RecipeController {
 		System.out.println(" getMaterial 호출 ========================================== ");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<MaterialVo> material = service.getMaterial(2);
+		List<MaterialVo> material = service.getMaterial(9);
 		
 		map.put("materialList", material);
 		
@@ -102,9 +102,9 @@ public class RecipeController {
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<RecipeStepVo> step = service.getRecipeStep(2);
-		List<FileuploadVo> stepFile = fileService.getRecipeStep(2);
-		List<FileuploadVo> finishImgs = fileService.getFinishImg(2);
+		List<RecipeStepVo> step = service.getRecipeStep(9);
+		List<FileuploadVo> stepFile = fileService.getRecipeStep(9);
+		List<FileuploadVo> finishImgs = fileService.getFinishImg(9);
 		
 		map.put("recipeStep", step);
 		map.put("fileStepList", stepFile);
@@ -122,10 +122,10 @@ public class RecipeController {
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<RecipeReplyVo> replyList = service.getRecipeReply(2);
+		List<RecipeReplyVo> replyList = service.getRecipeReply(9);
 		
 		map.put("replyList", replyList);
-		map.put("photoReview", fileService.getPhotoReview(2));
+		map.put("photoReview", fileService.getPhotoReview(9));
 		
 		return map;
 	}

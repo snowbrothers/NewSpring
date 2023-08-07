@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import com.recipe.service.FileuploadService;
 import com.recipe.service.RecipeService;
 import com.recipe.service.ReplyService;
 import com.recipe.vo.GeneralReplyVo;
+import com.recipe.vo.MemberVo;
 import com.recipe.vo.RecipeReplyVo;
 
 import lombok.extern.log4j.Log4j;
@@ -34,8 +37,15 @@ public class ReplyController {
 	FileuploadService fileService;
 
 	@PostMapping("/reply/photoReply")
-	public Map<String, Object> selectPhotoReview(int r_no) {
+	public Map<String, Object> selectPhotoReview(int r_no, HttpSession session) {
 
+		
+		// 
+		MemberVo member = session.getAttribute("member") == null ?  null : (MemberVo)session.getAttribute("member");
+		
+		// select << 게시물에 nickName << 으로 댓글이 달린 적이 있는지 total, or YN 으로 조회
+		member.getNickname();
+		
 		System.out.println("selectPhotoReview 실행 ==================================");
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -59,12 +69,12 @@ public class ReplyController {
 		System.out.println(" getRecipeList 호출 ========================================== ");
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<RecipeReplyVo> replyList = service.getRecipeReply(2);
-		int replyCnt =recipeService.replyTotalCnt(2);
-		int photoReviewCnt = recipeService.photoTotalCnt(2);
+		List<RecipeReplyVo> replyList = service.getRecipeReply(9);
+		int replyCnt =recipeService.replyTotalCnt(9);
+		int photoReviewCnt = recipeService.photoTotalCnt(9);
 		
 		map.put("replyList", replyList);
-		map.put("photoReview", fileService.getPhotoReview(2));
+		map.put("photoReview", fileService.getPhotoReview(9));
 		map.put("replyCnt", replyCnt);
 		map.put("photoReviewCnt", photoReviewCnt);
 		

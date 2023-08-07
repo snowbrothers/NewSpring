@@ -137,7 +137,7 @@ console.log('연결 확인 ===================================================')
 				
 				map.materialList.forEach(function(item, index){
 					
-				console.log('map.materialList : ', map.materialList);
+				//console.log('map.materialList : ', map.materialList);
 				
 					let i_name = item.i_name;
 					let materialCnt = item.materialcnt;
@@ -331,8 +331,10 @@ console.log('연결 확인 ===================================================')
 		//---------------------------------------------------------------------------------------
 			
 		function viewRecipeStep(map) {
-		   // console.log('조리순서 map 출력 : ', map);
-		    let content = '';
+		    console.log('조리순서 map 출력 : ', map);
+		    
+			
+			let content = '';
 
 		    if (map.recipeStep.length > 0) {
 		        map.recipeStep.forEach(function (item, index) {
@@ -364,7 +366,7 @@ console.log('연결 확인 ===================================================')
 		                   
 		                	let savePath = encodeURIComponent(matchedImage.savePath);
 		                    
-		                	console.log('savePath : ', savePath);
+		                	//console.log('savePath : ', savePath);
 		                    
 		                    
 		                    content +=
@@ -658,6 +660,8 @@ console.log('연결 확인 ===================================================')
 				    for (let index = 0; index < Math.min(5, map.replyList.length); index++) {
 				      const item = map.replyList[index];
 				      content += generateItemHtml(item);
+				      
+				      console.log('작성자 반복 출력', item.writer);
 				    }
 				    generalCommentDiv.innerHTML = content;
 				    $(".test-score1").score();
@@ -681,7 +685,7 @@ console.log('연결 확인 ===================================================')
 				  if (map.photoReview.length > 0) {
 				    map.photoReview.forEach(function (item, index) {
 				    	
-				    	console.log('map.photoReview : ', map.photoReview);
+				    	//console.log('map.photoReview : ', map.photoReview);
 				      let savePath = encodeURIComponent(item.savePath);
 				      let r_no = item.r_no;
 				     // console.log('savePath : ', savePath);
@@ -704,20 +708,20 @@ console.log('연결 확인 ===================================================')
 				        
 				    	  photoReply +=
 				       
-				        '<div class="w20p" style="display: none;"><p class="pclass"><a onclick="photoModal_rerere(\'' + savePath + '\', \'' + encodeURIComponent(replyJson) + '\' , \'' + replyListJson + '\' , \'' + photoReviewJson + '\', \'' + r_no + '\')">' +
+				        '<div class="w20p" style="display: none;"><p class="pclass"><a onclick="photoModal_TEST(\'' + savePath + '\', \'' + encodeURIComponent(replyJson) + '\' , \'' + replyListJson + '\' , \'' + photoReviewJson + '\', \'' + r_no + '\', \'' + index + '\')">' +
 				          '<img  src="/display?fileName=' + savePath + '"></a></p></div>';
 				       
 				        
 				      } else {
 				    	  
 				    	  	photoReply +=
-					          '<div style="cursor: pointer;" ><p class="pclass"><a onclick="photoModal_rerere(\'' + savePath + '\', \'' + encodeURIComponent(replyJson) + '\' , \'' + replyListJson + '\' , \'' + photoReviewJson + '\', \'' + r_no + '\')">' +
+					          '<div style="cursor: pointer;" ><p class="pclass"><a onclick="photoModal_TEST(\'' + savePath + '\', \'' + encodeURIComponent(replyJson) + '\' , \'' + replyListJson + '\' , \'' + photoReviewJson + '\', \'' + r_no + '\', \'' + index + '\')">' +
 					          '<img class="w136" src="/display?fileName=' + savePath + '"></a></p></div>';
 				    	 
 				    	  if(index == 9){
 				    	
 				    		  photoReply +=
-						          '<p class="moreP" style="width:100px; height:100px;" onclick="photoModal_rerere(\'' + savePath + '\', \'' + encodeURIComponent(replyJson) + '\' , \'' + replyListJson + '\' , \'' + photoReviewJson + '\', \'' + r_no + '\')"" >더보기</p>'
+						          '<p class="moreP" style="width:100px; height:100px;" onclick="photoModal_TEST(\'' + savePath + '\', \'' + encodeURIComponent(replyJson) + '\' , \'' + replyListJson + '\' , \'' + photoReviewJson + '\', \'' + r_no + '\', \'' + index + '\')"" >더보기</p>'
 				    	  }
 				        
 				      }
@@ -750,7 +754,7 @@ console.log('연결 확인 ===================================================')
 				  var photoReview = JSON.parse(decodeURIComponent(photoReviewJson));
 				  var replyList = JSON.parse(decodeURIComponent(replyListJson));
 				  var reply = JSON.parse(decodeURIComponent(replyJson));
-
+				  
 				  console.log('==================================');
 				  console.log('savePath : ',savePath);
 				  console.log('reply : ',reply);
@@ -1029,4 +1033,315 @@ console.log('연결 확인 ===================================================')
 		}
 		
 	
+	
+// ==========================================================================================================================
+	
+	 function nextBtn(r_no){
+   	  
+   	  
+   	  console.log('nextBtn 출력 ==========================');
+   	  console.log('r_no : ', r_no);
+	 };
+     
+     
+     function prevBtn(r_no){
+   	  
+   	  console.log('prevBtn 출력 ==========================');
+   	  console.log('r_no : ', r_no);
+   	  
+     };
+	
+	function photoModal_TEST(savePath, replyJson, replyListJson, photoReviewJson, r_no, index1) {
+		 
+		  const modal = document.getElementById("photoReviewModal");
+		  const photoReviewImgDiv = document.getElementById("photoReviewImgDiv");
+		  const photoReviewReplyDiv = document.getElementById("photoReviewReplyDiv");
+		  const photoReviewModalList = document.getElementById("photoReviewModalList");
+
+		  // Parse the stringified JSON objects back into arrays/objects
+		  var photoReview = JSON.parse(decodeURIComponent(photoReviewJson));
+		  var replyList = JSON.parse(decodeURIComponent(replyListJson));
+		  var reply = JSON.parse(decodeURIComponent(replyJson));
+		  	  
+		  console.log('==================================');
+		  console.log('savePath : ',savePath);
+		  console.log('reply : ',reply);
+		  console.log('replyList : ',replyList);
+		  console.log('photoReview : ',photoReview);
+		  console.log('r_no : ',r_no);
+		  console.log('index :', index1);
+		  console.log('==================================');
+		  
+		  //
+		  
+		  
+		  
+		  let matchedReply = replyList.find((item) => item.r_no == r_no);
+		  
+		  
+		  let photoBtn = 
+			  			'<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">'
+			  			+ '<div class="carousel-inner" style="overflow:inherit;">'	
+		  
+			  			
+         for(let i = 1; i>photoReview.length; i++){
+        	 
+        	 if(i == 1){
+        	
+        		 photoBtn +=
+        		 
+        		 '<button type="button" style="display: none;" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="'+i+'" class="active" aria-current="true" aria-label="Slide '+i+'"></button>'
+        	
+        	 }else{
+        	
+        		 photoBtn +=
+        		 
+        		'<button type="button" style="display: none;" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="'+i+'" aria-label="Slide '+i+'"></button>'
+                 
+        		 
+        	 }
+        	 
+             
+         }		  			
+			  			
+		
+			  			
+			  			
+		 
+		  '<div class="test-score2" data-max="5" data-rate="' +replyList[index1].star +'" ></div>'
+		  
+			  			
+		if(matchedReply){
+			
+		
+			  	
+			  	photoReview.forEach(function(item, index){
+			  	
+			  		let sPath = encodeURIComponent(item.savePath);
+			  		
+			  		if(index == index1){
+			  		
+			  			photoBtn +=
+		  					
+			  				'<div class="carousel-item active photoBtn" data-bs-interval="1000000">'
+		  					+	'<img style="height: 300px; max-width: 500px;" src="/display?fileName=' + savePath + '" class="d-block photoBtn" data-rno="'+item.r_no+'" alt="...">'			  				
+		  					+ '<div class="carousel-caption d-none d-md-block" style="top: 110%; color: black;">'
+		  			        + '<h5>'+replyList[index1].writer+'</h5>'
+		  			        + '<div class="test-score2" data-max="5" data-rate="' +replyList[index1].star +'" ></div><span>'+replyList[index1].replydate+'</span>'
+		  			        + '<p>'+replyList[index1].reply+'</p>'
+		  			        + '</div>'
+		  					+'</div>';
+			  			
+			  			console.log('replyList[index1] : ',replyList[index1]);
+			  			
+			  		}else {
+			  			
+			  			photoBtn +=
+			  				
+			  				'<div  class="carousel-item photoBtn" data-bs-interval="1000000">'
+					    	+		'<img style="height: 300px; max-width: 500px;" src="/display?fileName=' + sPath + '" class="d-block photoBtn" data-rno="'+item.r_no+'" alt="...">'	
+					    	+ '<div class="carousel-caption d-none d-md-block" style="top: 110%; color: black;">'
+		  			        + '<h5>'+replyList[index].writer+'</h5>'
+		  			        + '<div class="test-score2" data-max="5" data-rate="' +replyList[index].star +'" ></div><span>'+replyList[index1].replydate+'</span>'
+		  			        + '<p>'+replyList[index].reply+'</p>'
+		  			        + '</div>'
+					    	+    '</div>';
+			  			
+			  			console.log('replyList[index] : ',replyList[index]);
+			  			
+			  		}
+
+			  		
+			  	});
+		  
+		}  			
+		  				photoBtn +=
+		  					
+		  					'</div>'
+			  			+		'<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" onclick="prevBtn('+(r_no-1)+')" data-bs-slide="prev" >'
+						+	          '<span style="background-color: #F7863B;" class="carousel-control-prev-icon" aria-hidden="true" ></span>'
+						+	          '<span class="visually-hidden">Previous</span>'
+						+	        '</button>'	      
+		  				+		'<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" onclick="nextBtn('+(r_no+1)+')" data-bs-slide="next" >'
+						+	          '<span style="background-color: #F7863B;" class="carousel-control-next-icon" aria-hidden="true" ></span>'
+						+	          '<span class="visually-hidden">Next</span>'
+						+	      '</button>'
+						+   '</div>'
+		  
+
+		  
+			
+		  	photoReviewImgDiv.innerHTML = photoBtn;
+
+			$(".test-score2").score();				
+		  				
+		  				
+			const photoBtnImg = document.querySelectorAll('.photoBtn img');
+			
+			console.log('!!!!!!!! photoBtnImg : ', photoBtnImg);
+			
+			photoBtnImg.forEach((img) => {
+				
+			let checkRNO = img.getAttribute('data-rno');
+			
+			console.log('checkRNO : ', checkRNO);
+			
+			
+			});
+				
+			
+		  				
+		  //
+		  
+		  // Find the correct comment that matches the clicked photo's r_no
+		 
+
+		 /* console.log('matchedReply', matchedReply);
+		  console.log('r_no: ', r_no);
+
+		  
+		  // 모달창에 클릭한 사진의 이미지를 표시합니다.
+	      photoReviewImgDiv.innerHTML = matchedReply
+		    ? '<img style="max-width: 500px; max-height: 300px;" src="/display?fileName=' + savePath + '">'
+		    : '일치하는 이미지가 없습니다.';*/
+	      
+		  // 함수 하나 만들어서  문자열 return;
+          	
+          					
+		  				
+		  				
+	    /*  if (matchedReply) {
+		        
+	    	  let content =
+		          '<div class="contentHidden'+matchedReply.r_no+'" id="modalContent" data-rno="'+matchedReply.r_no+'">' +
+		          '<div id="modalHead">' +
+		          '<span>' +
+		          matchedReply.writer +
+		          '</span> <div class="test-score2" data-max="5" data-rate="' +
+		          matchedReply.star +
+		          '" ></div>' +
+		          '<span>' +
+		          matchedReply.replydate +
+		          '</span>' +
+		          '</div>' +
+		          '<div id="modalContent">' +
+		          matchedReply.reply +
+		          '</div>' +
+		          '</div>';
+		        photoReviewReplyDiv.innerHTML = content;
+		        $(".test-score2").score();
+		      } else {
+		        // 일치하는 댓글이 없는 경우, 댓글을 표시하는 영역에 메시지를 표시합니다.
+		        photoReviewReplyDiv.innerHTML = '일치하는 댓글이 없습니다.';
+		     
+		      }*/
+	      
+	      
+	      
+	     
+	      
+	      replyList.forEach(function (item, index){
+	    	  
+	    	  let content =
+	    		  
+		          '<div style="display:none;" class="contentHidden'+item.r_no+'" id="modalContent" data-rno="'+item.r_no+'">' +
+		          '<div id="modalHead">' +
+		          '<span>' +
+		          item.writer +
+		          '</span> <div class="test-score2" data-max="5" data-rate="' +
+		          item.star +
+		          '" ></div>' +
+		          '<span>' +
+		          item.replydate +
+		          '</span>' +
+		          '</div>' +
+		          '<div id="modalContent">' +
+		          item.reply +
+		          '</div>' +
+		          '</div>';
+		        
+	    	  	photoReviewReplyDiv.innerHTML += content;
+  
+	      });
+	      
+	      
+	      
+	     
+	      
+	      
+	      
+	      // ==========================================================================
+
+		  // 포토리뷰 전체를 보여주는 부분
+		  let photoList = '<ul style="background-color: white;">';
+
+		  photoReview.forEach(function (item, index) {
+		    let saveP = encodeURIComponent(item.savePath);
+
+		    // 각 이미지마다 고유한 'data-r_no' 속성을 추가하여 중복 불러오기 문제를 해결합니다.
+		    photoList += '<li style="width: 70px;" class="photoList"><img class="w100" name="photoList" src="/display?fileName=' + saveP + '" data-r_no="' + item.r_no + '" data-savePath="'+saveP+'"></li>';
+		  
+		  });
+
+		  photoList += '</ul>'
+			  
+		  photoReviewModalList.innerHTML = photoList;
+		  
+		  // 'photoList' 클래스를 가진 모든 이미지 요소를 가져옵니다.
+		  const photoListImages = document.querySelectorAll('.photoList img');
+		  console.log('photoListImages :', photoListImages);
+		  
+		  // 클릭한 사진의 이미지와 댓글 정보를 초기화합니다.
+		 
+
+		  // photoList의 각 이미지에 클릭 이벤트 리스너를 추가합니다.
+		  photoListImages.forEach((image) => {
+		    
+			  image.addEventListener('click', function () {
+		    
+			  // 클릭한 이미지에서 'data-r_no' 속성을 가져옵니다.
+		      const clickedRNo = image.getAttribute('data-r_no');
+		      const clickedSaveP = image.getAttribute('data-savePath');
+		      console.log('clickedRNo : ', clickedRNo);	
+		      console.log('clickedSaveP : ', clickedSaveP);
+		      
+		      // 클릭한 이미지의 'data-r_no' 속성과 일치하는 댓글을 'replyList'에서 찾습니다.
+		      const matchedReply = replyList.find((item) => item.r_no == clickedRNo);
+		      console.log('두번째 matchedReply : ', matchedReply)
+		      
+		      // 모달창에 클릭한 사진의 이미지를 표시합니다.
+		      photoReviewImgDiv.innerHTML = matchedReply
+			    ? '<img style="max-width: 500px; max-height: 300px;" src="/display?fileName=' + clickedSaveP + '">'
+			    : '일치하는 이미지가 없습니다.';
+
+		      // 댓글 정보를 'photoReviewReplyDiv'에 표시합니다.
+		      /* if (matchedReply) {
+		        let content =
+		          '<div id="modalContent">' +
+		          '<div id="modalHead">' +
+		          '<span>' +
+		          matchedReply.writer +
+		          '</span> <div class="test-score2" data-max="5" data-rate="' +
+		          matchedReply.star +
+		          '"></div>' +
+		          '<span>' +
+		          matchedReply.replydate +
+		          '</span>' +
+		          '</div>' +
+		          '<div id="modalContent">' +
+		          matchedReply.reply +
+		          '</div>' +
+		          '</div>';
+		        photoReviewReplyDiv.innerHTML = content;
+		        $(".test-score2").score();
+		      } else {
+		        // 일치하는 댓글이 없는 경우, 댓글을 표시하는 영역에 메시지를 표시합니다.
+		        photoReviewReplyDiv.innerHTML = '일치하는 댓글이 없습니다.';
+		      }
+		   */
+			  });
+		  });
+
+		  modal.style.display = 'block';
+		}
 	
