@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -96,6 +97,10 @@
 			
 			// 일반 댓글 출력
 			getGeneralReply();
+			
+			
+			// 최근 본 페이지 출력
+			recentPage();
 			
 		 
 			// 좋아요 버튼 클릭 시 실행되는 함수
@@ -205,6 +210,8 @@
 			
 			
   
+			
+			  
 			
 			
 	        });
@@ -489,6 +496,34 @@
         reader.readAsDataURL(event.target.files[0]);
       }
 	
+	
+	// --------------------------------------------- 쿠키 
+	
+	
+	function setCookie(name, values, days) {
+      var exdate = new Date();
+      exdate.setDate(exdate.getDate() + days);
+      // 설정 일수만큼 현재시간에 만료값으로 지정
+      var cookie_value = escape(values) + ((days == null) ? '' : 'expires=' + exdate.toUTCString());
+      document.cookie = name + '=' + values;
+   }
+
+   function getCookie(name) {
+      var x, y;
+      var val = document.cookie.split(';');
+      for (var i = 0; i < val.length; i++) {
+         x = val[i].substr(0, val[i].indexOf('='));
+         y = val[i].substr(val[i].indexOf('=') + 1);
+         x = x.replace(/^\s+|\s+$/g, '');
+         // 앞과 뒤의 공백 제거하기
+         if (x == name) {
+            return unescape(y);
+            // unescape로 디코딩 후 값 리턴
+         }
+      }
+   }
+	
+	
 
    </script>
 <body>
@@ -681,6 +716,7 @@
 			<span style="margin-left: 1030px; display: inline-block;" class="close" onclick="closeModal()">&times;</span>
 			<div style="display:flex; margin-top: 30px">
 			
+		
 			<div id="container">
 			
 			<div id="photoReviewImgDiv">
@@ -717,9 +753,37 @@
 	
 	</div>
 	
-	
+	 
+	  <%
+	/*
+	  	Cookie cookie = new Cookie("message", URLEncoder.encode("한글입니다.", "UTF-8")); 
+	     response.addCookie(cookie);
+	     
+	     request.setCharacterEncoding("UTF-8");
+	 	String cp = request.getContextPath();
+	 	
+	 	//기존 쿠키 덮어씌운다
+	 	Cookie c4 = new Cookie("tel", null);
+	 	response.addCookie(c4);
+	 	
+	 	//쿠키는 배열로 받는다.
+	 	Cookie[] c = request.getCookies();
+	 	
+	 	if(c!=null) {
+			
+			for(Cookie ck : c) {
+				
+				out.print("쿠키이름: ");
+				out.print(ck.getName());
+				out.print(", 쿠키값: ");
+				out.print(ck.getValue() + "<br/>");
+			}
+		}
+	 	*/
+	%> 
+	 
 	<!-- 최근 방문한 레시피 -->
-	<div class="recently-viewed">
+	<div id="recentlyViewed" class="recently-viewed">
 		<!-- Display recently viewed recipes as clickable images -->
 		<a href="link-to-recipe1"><img src="path/to/recipe1.jpg"
 			alt="Recipe 1"></a> <a href="link-to-recipe2"><img

@@ -119,3 +119,44 @@ function photoModal_TEST(savePath, replyJson, replyListJson, photoReviewJson, r_
 
   modal.style.display = 'block';
 }
+
+
+//
+
+
+
+
+
+function viewFileList(map) {
+   
+	let bno = document.querySelector('#b_no').value;
+    console.log('map 출력:', map.list);
+    let content = '';
+
+    if (map.list.length > 0) {
+        map.list.forEach(function (item, index) {
+            let savePath = encodeURIComponent(item.savePath);
+
+            content +=
+                '<a><img style="max-width:500px; max-height:500px;" src="/display?fileName=' + savePath + '"></a>';
+
+            const recnetArray = JSON.parse(localStorage.getItem('recnetArray')) || [];
+
+            const recent = {
+                b_no: bno,
+                savePath: savePath
+            };
+
+            recnetArray.push(recent);
+
+            // 객체를 JSON 문자열로 변환하여 저장
+            localStorage.setItem('recnetArray', JSON.stringify(recnetArray));
+        });
+    } else {
+        content = '등록된 파일이 없습니다.';
+    }
+
+    let savePath = map.list.savePath;
+
+    headImgDiv.innerHTML = content;
+}
